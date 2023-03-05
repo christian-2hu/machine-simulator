@@ -40,6 +40,10 @@ void parse(FILE *file) {
             stack_push(&stack, first_top + second_top);
         }
         if(strncmp("print", buffer, 5) == 0) {
+            if(stack_get_size(stack) == 0) {
+                printf("Error, the stack is empty.\n");
+                exit(EXIT_FAILURE);
+            }
             printf("%d\n", stack_peek(stack));
         }
         if(strncmp("pop", buffer, 3) == 0) {
