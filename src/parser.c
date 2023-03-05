@@ -42,6 +42,9 @@ void parse(FILE *file) {
         if(strncmp("print", buffer, 5) == 0) {
             printf("%d\n", stack_peek(stack));
         }
+        if(strncmp("pop", buffer, 3) == 0) {
+            stack_pop(&stack);
+        }
     }
 }
 
