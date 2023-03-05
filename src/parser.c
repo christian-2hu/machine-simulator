@@ -42,7 +42,11 @@ void parse(FILE *file) {
         if(strncmp("print", buffer, 5) == 0) {
             printf("%d\n", stack_peek(stack));
         }
-        if(strncmp("pop", buffer, 3) == 0) {          
+        if(strncmp("pop", buffer, 3) == 0) {
+            if(stack_get_size(stack) == 0 ) {
+                printf("Error, cannot pop. Stack is empty!\n");
+                exit(EXIT_FAILURE);
+            }            
                 stack_pop(&stack);
         }
     }
