@@ -21,7 +21,6 @@ void parse(FILE *file) {
             int pushed_value = 0;
             for(int i = 0; i < (int)strlen(buffer)+1; i++) {
                 if(isdigit(buffer[i])) {
-                    printf("%c\n", buffer[i]);
                     int casted_char = buffer[i] - '0';
                     pushed_value = concatenate(pushed_value, casted_char);
                 }
@@ -31,6 +30,15 @@ void parse(FILE *file) {
             }
             printf("Pushed value is %d\n", pushed_value);
             stack_push(&stack, pushed_value);
+        }
+        if(strncmp("add", buffer, 3) == 0) {
+            if(stack_get_size(stack) == 0) {
+                printf("Error, you cannot add items when the stack is empty.\n");
+                exit(EXIT_FAILURE);
+            }
+            int first_top = stack_pop(&stack);
+            int second_top = stack_pop(&stack);
+            stack_push(&stack, first_top + second_top);
         }
     }
 }

@@ -3,7 +3,7 @@
 
 typedef struct Node {
     int data;
-    struct Node *next;  
+    struct Node *next;
 } Node;
 
 Node *new_node() {
@@ -33,4 +33,16 @@ int stack_pop(Node **stack) {
     int popped = (*stack)->data;
     *stack = (*stack)->next;
     return popped;
+}
+
+int stack_get_size(Node *stack) {
+    Node *ptr = stack;
+    int size = 0;
+    if(stack != NULL) {
+        while(ptr != NULL) {
+            size++;
+            ptr = ptr->next;
+        }
+    }
+    return size;
 }
