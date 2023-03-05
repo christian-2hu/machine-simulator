@@ -31,8 +31,8 @@ void parse(FILE *file) {
             stack_push(&stack, pushed_value);
         }
         if(strncmp("add", buffer, 3) == 0) {
-            if(stack_get_size(stack) == 0) {
-                printf("Error, you cannot add items when the stack is empty.\n");
+            if(stack_get_size(stack) <= 1) {
+                printf("Error, you cannot add when the stack is empty or the size is less than one.\n");
                 exit(EXIT_FAILURE);
             }
             int first_top = stack_pop(&stack);
@@ -42,8 +42,8 @@ void parse(FILE *file) {
         if(strncmp("print", buffer, 5) == 0) {
             printf("%d\n", stack_peek(stack));
         }
-        if(strncmp("pop", buffer, 3) == 0) {
-            stack_pop(&stack);
+        if(strncmp("pop", buffer, 3) == 0) {          
+                stack_pop(&stack);
         }
     }
 }
