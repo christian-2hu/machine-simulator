@@ -28,7 +28,6 @@ void parse(FILE *file) {
                     break;
                 }
             }
-            printf("Pushed value is %d\n", pushed_value);
             stack_push(&stack, pushed_value);
         }
         if(strncmp("add", buffer, 3) == 0) {
@@ -39,6 +38,9 @@ void parse(FILE *file) {
             int first_top = stack_pop(&stack);
             int second_top = stack_pop(&stack);
             stack_push(&stack, first_top + second_top);
+        }
+        if(strncmp("print", buffer, 5) == 0) {
+            printf("%d\n", stack_peek(stack));
         }
     }
 }

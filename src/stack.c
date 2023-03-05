@@ -46,3 +46,10 @@ int stack_get_size(Node *stack) {
     }
     return size;
 }
+
+int stack_peek(Node *stack) {
+    if(stack == NULL) {
+        return 0;
+    }
+    return stack->data;
+}
