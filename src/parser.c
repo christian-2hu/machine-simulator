@@ -53,6 +53,14 @@ void parse(FILE *file) {
             }            
                 stack_pop(&stack);
         }
+        if(strncmp("dup", buffer, 3) == 0) {
+            if(stack_get_size(stack) == 0) {
+                printf("Error, cannot dub. Stack is empty!\n");
+                exit(EXIT_FAILURE);
+            }
+            int temp = stack_peek(stack);
+            stack_push(&stack, temp);
+        }
     }
 }
 
