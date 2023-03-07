@@ -74,6 +74,15 @@ void parse(FILE *file) {
                     break;
                 }
             }
+            address--;
+            if(address < 0) {
+                printf("Error, can't jump to a negative line.\n");
+                exit(EXIT_FAILURE);
+            }
+            if(address >= array_size(&byte_line)) {
+                printf("Error, can't jump to a inexistent line.\n");
+                exit(EXIT_FAILURE);
+            }
             fseek(file, array_get(&byte_line, address), SEEK_SET);
         }
     }
