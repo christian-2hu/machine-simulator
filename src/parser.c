@@ -85,6 +85,21 @@ void parse(FILE *file) {
             }
             fseek(file, array_get(&byte_line, address), SEEK_SET);
         }
+        if(strncmp("ifeq", buffer, 4) == 0) {
+            int address = 0;
+            for(int i = 0; i < (int)strlen(buffer)+1; i++) {
+                if(isdigit(buffer[i])) {
+                    int casted_char = buffer[i] - '0';
+                    address = concatenate(address, casted_char);
+                }
+                if(buffer[i] == '#') {
+                    break;
+                }
+            }
+            if(stack_peek(stack) != 0) {
+                fseek(file, array_get(&byte_line, address), SEEK_SET);
+            }
+        }
     }
 }
 
