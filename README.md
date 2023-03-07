@@ -20,3 +20,5 @@ Just clone the repository and on the folder run
 make
 ```
 The generated binary file will be in /bin.
+
+The Makefile makes use of GCC, but you can change for you compiler of choice if you want.
