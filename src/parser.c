@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "stack.c"
+#include "array.c"
 #include <ctype.h>
 
 unsigned concatenate(unsigned x, unsigned y) {
@@ -15,8 +16,9 @@ void parse(FILE *file) {
     char ch;
     char buffer[256];
     Node *stack = new_node();
-
+    Array byte_line = new_array(4);
     while(fgets(buffer, 256, file) != NULL) {
+        array_add(&byte_line, ftell(file));        
         if(strncmp("push", buffer, 4) == 0) {
             int pushed_value = 0;
             for(int i = 0; i < (int)strlen(buffer)+1; i++) {
@@ -60,6 +62,19 @@ void parse(FILE *file) {
             }
             int temp = stack_peek(stack);
             stack_push(&stack, temp);
+        }
+        if(strncmp("jump", buffer, 4) == 0) {
+            int address = 0;
+            for(int i = 0; i < (int)strlen(buffer)+1; i++) {
+                if(isdigit(buffer[i])) {
+                    int casted_char = buffer[i] - '0';
+                    address = concatenate(address, casted_char);
+                }
+                if(buffer[i] == '#') {
+                    break;
+                }
+            }
+            fseek(file, array_get(&byte_line, address), SEEK_SET);
         }
     }
 }
