@@ -21,10 +21,9 @@ Array new_array(int capacity) {
 	return array;
 }
 
-void array_resize(Array *array) {
+void array_resize(Array *array, int capacity) {
 	int *new_array;
-	array->capacity = (array->capacity * 2); 
-	new_array = malloc(array->capacity * sizeof(int));
+	new_array = malloc(capacity * sizeof(int));
 	for(int i = 0; i < array->size; i++) {
 		new_array[i] = array->array[i];
 	}
@@ -34,7 +33,7 @@ void array_resize(Array *array) {
 
 void array_add(Array *array, int item) {
 	if(array->size == array->capacity) {
-		array_resize(array);
+		array_resize(array, array->capacity*2);
 	}
 	array->array[array->size] = item;
 	array->size++;
@@ -44,6 +43,9 @@ void array_del(Array *array, int index) {
 	if(index >= array->size || index < 0) {
 		printf("Error, index out of bonds\n.");
 		exit(EXIT_FAILURE);
+	}
+	if((array->capacity/4) == array->size) {
+		array_resize(array, array->capacity);
 	}
     for(int i = index; i < array->size; i++) {
         if(i == array->size-1) {
