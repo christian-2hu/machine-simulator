@@ -9,7 +9,7 @@ typedef struct Array {
 
 Array new_array(int capacity) {
     if(capacity < 1) {
-        printf("Capacity must be at least 2!");
+        printf("Capacity must be at least 1!");
         exit(EXIT_FAILURE);
     }
 	Array array;
@@ -41,6 +41,10 @@ void array_add(Array *array, int item) {
 }
 
 void array_del(Array *array, int index) {
+	if(index >= array->size || index < 0) {
+		printf("Error, index out of bonds\n.");
+		exit(EXIT_FAILURE);
+	}
     for(int i = index; i < array->size; i++) {
         if(i == array->size-1) {
             break;
@@ -60,6 +64,10 @@ int array_find(Array *array, int value) {
 }
 
 int array_get(Array *array, int index) {
+	if(index >= array->size || index < 0) {
+		printf("Error, index out of bonds\n.");
+		exit(EXIT_FAILURE);
+	}
 	return array->array[index];
 }
 
